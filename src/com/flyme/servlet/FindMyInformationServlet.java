@@ -16,18 +16,20 @@ import com.flyme.entity.Customer;
  */
 public class FindMyInformationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FindMyInformationServlet() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FindMyInformationServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -36,21 +38,23 @@ public class FindMyInformationServlet extends HttpServlet {
 		Customer customer = (Customer) session.getAttribute("customer");
 		String CallName = customer.getCallName();
 		CustomerDao customerDao = new CustomerDao();
-		
-//		List<Customer> lpt=customerDao.getProductByProductID(id); 用id获取
-		Customer currentCustomer= (Customer)customerDao.getuserDetilWithName(CallName); // 用callName获取
+
+		// List<Customer> lpt=customerDao.getProductByProductID(id); 用id获取
+		Customer currentCustomer = (Customer) customerDao.getuserDetilWithName(CallName); // 用callName获取
 		request.setAttribute("name", currentCustomer.getCallName());
 		request.setAttribute("pass", currentCustomer.getCustomPass());
 		request.setAttribute("mail", currentCustomer.getEmail());
 		request.setAttribute("sex", currentCustomer.getCustomSex());
 		request.getRequestDispatcher("myinformation.jsp").forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

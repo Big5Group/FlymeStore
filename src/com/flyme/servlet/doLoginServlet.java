@@ -18,18 +18,20 @@ import com.flyme.util.MD5;
  */
 public class doLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public doLoginServlet() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public doLoginServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		// 1、获得表单提交的数据
@@ -45,8 +47,8 @@ public class doLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("customer", customer);
 		PrintWriter out = response.getWriter();
-		
-		if(request.getParameter("inputCode").equals(session.getAttribute("authCode"))) {
+
+		if (request.getParameter("inputCode").equals(session.getAttribute("authCode"))) {
 			out.print("输入正确");
 			// 4、根据数据库操作返回的结果，封装数据&页面跳转
 			if (isVaild) { // 合法用户, 重定向到 IndexServlet
@@ -55,15 +57,17 @@ public class doLoginServlet extends HttpServlet {
 				request.getSession().setAttribute("error", "用户登录失败！");
 				response.sendRedirect("account.jsp"); // 非法用户, 重定向到 account.jsp
 			}
-		}else{
+		} else {
 			out.print("输入错误");
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

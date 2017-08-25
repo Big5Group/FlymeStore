@@ -16,35 +16,38 @@ import com.flyme.entity.CartItem;
  */
 public class RemoveCartItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RemoveCartItem() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public RemoveCartItem() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		@SuppressWarnings("unchecked")
-		Map<Integer,CartItem>  cart = (Map<Integer, CartItem>) session.getAttribute("cart");
-		int n=Integer.parseInt(request.getParameter("productID"));
+		Map<Integer, CartItem> cart = (Map<Integer, CartItem>) session.getAttribute("cart");
+		int n = Integer.parseInt(request.getParameter("productID"));
 		cart.remove(n);
 		session.setAttribute("cart", cart);
 		response.sendRedirect("cart.jsp");
-		
+
 	}
 
-	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

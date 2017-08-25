@@ -15,13 +15,19 @@ import com.flyme.util.DBPool;
 public class BaseDao<T> {
 	Class<T> clazz;
 	Connection conn = null;
+
 	// 反射获得clazz
 	@SuppressWarnings("unchecked")
 	public BaseDao() {
 		clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	// 关闭所有链接
+	/**
+	 * 关闭所有链接
+	 * @param conn
+	 * @param pstmt
+	 * @param rs
+	 */
 	public void closeAll(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 		if (rs != null) {
 			try {
@@ -46,12 +52,18 @@ public class BaseDao<T> {
 		}
 	}
 
-
-	public int executeUpdateCon(Connection con ,String sql, Object[] param) {
+	/**
+	 * 执行预编译DML语句
+	 * @param con
+	 * @param sql
+	 * @param param
+	 * @return
+	 */
+	public int executeUpdateCon(Connection con, String sql, Object[] param) {
 		PreparedStatement pstmt = null;
 		int num = 0;
 		try {
-			conn =con;
+			conn = con;
 			pstmt = conn.prepareStatement(sql);
 			if (param != null) {
 				for (int i = 0; i < param.length; i++) {
@@ -67,8 +79,9 @@ public class BaseDao<T> {
 		}
 		return num;
 	}
+
 	public int executeUpdate(String sql, Object[] param) {
-		
+
 		PreparedStatement pstmt = null;
 		int num = 0;
 
@@ -90,7 +103,12 @@ public class BaseDao<T> {
 		return num;
 	}
 
-	// 执行预编译DQL语句
+	/** 
+	 * 执行预编译DQL语句
+	 * @param sql
+	 * @param param
+	 * @return
+	 */
 	public List<T> executeQuery(String sql, Object[] param) {
 		PreparedStatement stat = null;
 		ResultSet rs = null;
@@ -124,7 +142,11 @@ public class BaseDao<T> {
 		return list;
 	}
 
-	// 执行无条件sql语句（分页使用）
+	/**
+	 * 执行无参数 sql 语句（分页使用）
+	 * @param sql
+	 * @return
+	 */
 	public List<T> executeQuery(String sql) {
 		PreparedStatement stat = null;
 		ResultSet rs = null;
@@ -152,7 +174,11 @@ public class BaseDao<T> {
 		return list;
 	}
 
-	// 获得所有记录条数(分页使用)
+	/**
+	 * 获得所有记录条数(分页使用)
+	 * @param sql
+	 * @return
+	 */
 	public int executeQueryCount(String sql) {
 		PreparedStatement stat = null;
 		ResultSet rs = null;
@@ -170,7 +196,11 @@ public class BaseDao<T> {
 		return 0;
 	}
 
-	// 输出预编译的sql语句的具体内容(便于调试)
+	/**
+	 * 输出预编译的sql语句的具体内容(便于调试)
+	 * @param sql
+	 * @param params
+	 */
 	private void printSql(String sql, Object[] params) {
 		StringBuffer sb = new StringBuffer(sql);
 		int fromIndex = 0;

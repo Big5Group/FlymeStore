@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Hex;
 public class MD5 {
 	/**
 	 * md5加密的工具方法
+	 * 
 	 * @throws NoSuchAlgorithmException
 	 */
 	public static String encryptWithMD5(String plaintext) {

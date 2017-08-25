@@ -36,14 +36,11 @@ public class CustomerDao extends BaseDao<Customer> {
 		List<Customer> list = executeQuery("select * from fm_customer where callName = ? and CustomPass = ?;",
 				new Object[] { customer.getCallName(), customer.getCustomPass() });
 		return list.size() > 0 ? true : false;
-
 	}
-	
-	public boolean checkUser(String callName) {
-		List<Customer> list = executeQuery("select * from fm_customer where callName = ?;",
-				new Object[] { callName});
-		return list.size() > 0 ? true : false;
 
+	public boolean checkUser(String callName) {
+		List<Customer> list = executeQuery("select * from fm_customer where callName = ?;", new Object[] { callName });
+		return list.size() > 0 ? true : false;
 	}
 
 	/**
@@ -102,11 +99,11 @@ public class CustomerDao extends BaseDao<Customer> {
 				new Object[] { cus.getCallName(), cus.getCustomPass(), cus.getEmail(), cus.getCustomSex(),
 						cus.getFoundDate(), cus.getState() });
 		return result;
-
 	}
 
 	/**
 	 * 根据 id 更改记录
+	 * 
 	 * @param cus
 	 * @param id
 	 * @return
@@ -117,19 +114,17 @@ public class CustomerDao extends BaseDao<Customer> {
 				"update  fm_customer set  CallName=?, CustomPass=?,Email=?,CustomSex=?,FoundDate=?,State=? where CustomerID= ?",
 				new Object[] { cus.getCallName(), cus.getCustomPass(), cus.getEmail(), cus.getCustomSex(),
 						cus.getFoundDate(), cus.getState(), id });
-
 	}
 
 	/**
-	 * 根据删除一条记录
+	 * 根据 ID 删除一条记录
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public int deleteUser(int id) {
-		return super.executeUpdate("delete from fm_customer where CustomerID=?", new Object[] {id});
+		return super.executeUpdate("delete from fm_customer where CustomerID=?", new Object[] { id });
 	}
-	
-	
 
 	public void selectCustomerInfoWithID(int id) {
 

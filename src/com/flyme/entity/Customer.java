@@ -18,10 +18,10 @@ public class Customer {
 	public Customer() {
 		super();
 	}
-	
-	public Customer(String callName){
+
+	public Customer(String callName) {
 		super();
-		CallName=callName;
+		CallName = callName;
 	}
 
 	public Customer(String callName, String customPass) {
@@ -29,7 +29,7 @@ public class Customer {
 		CallName = callName;
 		CustomPass = customPass;
 	}
-	
+
 	public Customer(String callName, String email, Integer customSex, String customPass) {
 		super();
 		CallName = callName;

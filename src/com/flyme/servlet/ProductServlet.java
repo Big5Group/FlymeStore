@@ -1,6 +1,5 @@
 package com.flyme.servlet;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,7 +14,6 @@ import com.flyme.entity.Product;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-
 /**
  * Servlet implementation class DoSearchCustomerServlet
  */
@@ -29,6 +27,7 @@ public class ProductServlet extends HttpServlet {
 
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -93,7 +92,7 @@ public class ProductServlet extends HttpServlet {
 				jsonObject.addProperty("message", "修改失败");
 			}
 			out.write(jsonObject.toString());
-			
+
 		} else if (flag.equals("deleteUser")) {
 			int id = Integer.parseInt(request.getParameter("ProductID"));
 			if (dao.delete(id) == 1) {
@@ -108,9 +107,8 @@ public class ProductServlet extends HttpServlet {
 		//
 		out.flush();
 		out.close();
-}
-	
-	
+	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -118,6 +116,6 @@ public class ProductServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
+		doPost(request, response);
 	}
 }

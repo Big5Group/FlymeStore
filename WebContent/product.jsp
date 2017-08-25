@@ -30,14 +30,7 @@
     <script src="js/bootstrap.min.js"></script>
     
     <script src="js/photo-gallery.js"></script>
-    
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 <body>
 	
@@ -54,12 +47,16 @@
 				<div class="col-xs-6">
 					<ul class="top-link">
 						<%
-							if(session.getAttribute("customer")!=null){
-								out.print("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span>"+ ((Customer) request.getSession().getAttribute("customer")).getCallName() + 
-							"</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'><ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
+							if (session.getAttribute("customer") != null) {
+								out.print("<li class='dropdown'>" + "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>"
+										+ "<span class='glyphicon glyphicon-user'></span>"
+										+ ((Customer) request.getSession().getAttribute("customer")).getCallName()
+										+ "</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'>"
+										+ "<ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
 							} else {
-								out.print("<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
-							}
+								out.print(
+										"<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
+							}	
 						%>
 						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> 个人信息</a></li>
 					</ul>

@@ -46,18 +46,16 @@ public class DoSearchCustomerServlet extends HttpServlet {
 		if (flag.equals("query")) {
 			List<Customer> mlist = dao.getAllUser();
 			out.write(new Gson().toJson(mlist));
-		}
-		else if (flag.equals("add")) {
+		} else if (flag.equals("add")) {
 			Customer userinfo = new Customer();
 			userinfo.setCallName(request.getParameter("CallName"));
 			userinfo.setCustomPass(request.getParameter("CustomPass"));
 			userinfo.setEmail(request.getParameter("Email"));
-			int I =Integer.parseInt(request.getParameter("CustomSex"));
+			int I = Integer.parseInt(request.getParameter("CustomSex"));
 			userinfo.setCustomSex(I);
-			I=Integer.parseInt(request.getParameter("State"));
+			I = Integer.parseInt(request.getParameter("State"));
 			userinfo.setFoundDate(request.getParameter("FoundDate"));
 			userinfo.setState(I);
-
 
 			System.out.println("name: " + userinfo.getCallName());
 
@@ -75,9 +73,9 @@ public class DoSearchCustomerServlet extends HttpServlet {
 			userinfo.setCallName(request.getParameter("CallName"));
 			userinfo.setCustomPass(request.getParameter("CustomPass"));
 			userinfo.setEmail(request.getParameter("Email"));
-			int I =Integer.parseInt(request.getParameter("CustomSex"));
+			int I = Integer.parseInt(request.getParameter("CustomSex"));
 			userinfo.setCustomSex(I);
-			I=Integer.parseInt(request.getParameter("State"));
+			I = Integer.parseInt(request.getParameter("State"));
 			userinfo.setFoundDate(request.getParameter("FoundDate"));
 			userinfo.setState(I);
 
@@ -112,7 +110,7 @@ public class DoSearchCustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-			doGet(request, response);
+		doGet(request, response);
 	}
 
 }

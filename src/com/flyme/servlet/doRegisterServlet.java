@@ -36,12 +36,12 @@ public class doRegisterServlet extends HttpServlet {
 		String username = request.getParameter("username").trim();
 		String email = request.getParameter("email").trim();
 		Integer gender = Integer.parseInt(request.getParameter("gender").trim());
-		
-//		System.out.println(request.getParameter("password").trim()); // 打印了明文
-		
+
+		// System.out.println(request.getParameter("password").trim()); // 打印了明文
+
 		String password = request.getParameter("password").trim();
 		String Ciphertext = MD5.encryptWithMD5(password); // MD5加密后的密文
-		
+
 		String nowStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(System.currentTimeMillis()));
 		// 2、封装对象
 		Customer customer = new Customer(username, email, gender, Ciphertext);
@@ -51,7 +51,7 @@ public class doRegisterServlet extends HttpServlet {
 		CustomerDao customerDao = new CustomerDao();
 		boolean isSuccessful = customerDao.register(customer);
 		PrintWriter out = response.getWriter();
-		
+
 		if (isSuccessful) {
 			out.print("true");
 			out.println("注册成功,请登录!");

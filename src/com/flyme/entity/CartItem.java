@@ -1,8 +1,9 @@
 package com.flyme.entity;
 
 public class CartItem {
-	private Product product;
-	private int num;
+
+	private int num;			// key
+	private Product product;	// value
 
 	public CartItem() {
 		super();
@@ -14,20 +15,20 @@ public class CartItem {
 		this.num = num;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
 	public int getNum() {
 		return num;
 	}
 
 	public void setNum(int num) {
 		this.num = num;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 }
