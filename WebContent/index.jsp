@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@page import="com.flyme.entity.Customer"%>
+<%@page import="com.flyme.entity.*"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,19 +45,24 @@
 					<ul class="top-link">
 						<%
 							if (session.getAttribute("customer") != null) {
-								out.print("<li class='dropdown'>"
-										+ "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>"
-									    +"<span class='glyphicon glyphicon-user'></span>"
-										+ ((Customer) request.getSession().getAttribute("customer")).getCallName()
-										+ "</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'>"
-										+"<ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
+								out.print(
+										"<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span>"
+												+ ((Customer) request.getSession().getAttribute("customer")).getCallName()
+												+ "</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'><ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
 							} else {
 								out.print(
 										"<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
 							}
 						%>
-						<li><a href="myinfomation.jsp"><span
-								class="glyphicon glyphicon-envelope"></span> 个人信息</a></li>
+						<li><a
+							href="
+							<%if (session.getAttribute("customer") != null) {
+				out.print("contact.jsp");
+			} else {
+				out.print("account.jsp");
+			}%>">
+								<span class="glyphicon glyphicon-envelope"></span> 个人信息
+						</a></li>
 					</ul>
 				</div>
 			</div>
@@ -79,8 +86,19 @@
 			</div>
 			<div class="col-md-4">
 				<div id="cart">
-					<a class="btn btn-1" href="cart.jsp"><span
-						class="glyphicon glyphicon-shopping-cart"></span>CART : 0 ITEM</a>
+					<a class="btn btn-1"
+						href="<%if (session.getAttribute("customer") != null) {
+				out.print("cart.jsp");
+			} else {
+				out.print("account.jsp");
+			}%>"><span
+						class="glyphicon glyphicon-shopping-cart"></span>CART : <%
+						if (session.getAttribute("cart") != null) {
+							out.print(((HashMap) request.getSession().getAttribute("cart")).size());
+						} else {
+							out.print("0");
+						}
+					%> ITEM</a>
 				</div>
 			</div>
 		</div>
@@ -104,14 +122,14 @@
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
 									<li><a href="category.jsp">Meizu</a></li>
-									<li><a href="category.jsp">Samsung(无货)</a></li>
-									<li><a href="category.jsp">Nokia(无货)</a></li>
-									<li><a href="category.jsp">Lenovo(无货)</a></li>
+									<li><a href="#">Samsung(无货)</a></li>
+									<li><a href="#">Nokia(无货)</a></li>
+									<li><a href="#">Lenovo(无货)</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.jsp">Oppo(无货)</a></li>
-									<li><a href="category.jsp">HTC(无货)</a></li>
-									<li><a href="category.jsp">Iphone(无货)</a></li>
+									<li><a href="#">Oppo(无货)</a></li>
+									<li><a href="#">HTC(无货)</a></li>
+									<li><a href="#">Iphone(无货)</a></li>
 								</ul>
 							</div>
 						</div></li>
@@ -121,8 +139,10 @@
 		</div>
 	</nav>
 	<!--//////////////////////////////////////////////////-->
-	<!--///////////////////HomePage///////////////////////-->
+	<!--//////////////////HomePage///////////////////////-->
 	<!--//////////////////////////////////////////////////-->
+
+
 	<div class="copyrights">
 		Collect from <a href="http://www.cssmoban.com/">网页模板</a>
 	</div>
@@ -143,7 +163,9 @@
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="images/main-banner1-1903x600.jpg" alt="First slide">
+								<a href="ProductDetailServlet?ProductID=1"><img
+									src="images/Cgbj0FmANSOASndbAAPf0Qu2l3c067.jpg"
+									alt="First slide"></a>
 								<!-- Static Header -->
 								<div class="header-text hidden-xs">
 									<div class="col-md-12 text-center"></div>
@@ -151,7 +173,8 @@
 								<!-- /header-text -->
 							</div>
 							<div class="item">
-								<img src="images/main-banner2-1903x600.jpg" alt="Second slide">
+								<img src="images/Cgbj0FmaOwaAEiz_AAFmT8gF4wE768.jpg"
+									alt="Second slide">
 								<!-- Static Header -->
 								<div class="header-text hidden-xs">
 									<div class="col-md-12 text-center"></div>
@@ -159,7 +182,8 @@
 								<!-- /header-text -->
 							</div>
 							<div class="item">
-								<img src="images/main-banner3-1903x600.jpg" alt="Third slide">
+								<img src="images/Cgbj0Fmb09KAOSLuAAG8mjZj90w051.jpg"
+									alt="Third slide">
 								<!-- Static Header -->
 								<div class="header-text hidden-xs">
 									<div class="col-md-12 text-center"></div>
@@ -197,140 +221,60 @@
 					<div class="heading">
 						<h2>推荐</h2>
 					</div>
-					<div class="products">
-						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-							<div class="product">
-								<div class="image">
-									<a href="ProductDetailServlet?ProductID=1"><img
-										src="phoneimg/01/C5/Cgbj0Vl4NtSAIhhgAA5gODMkEVQ102.png@240x240.jpg" /></a>
-								</div>
-								<div class="buttons">
-									<a class="btn cart" href="#"><span
-										class="glyphicon glyphicon-shopping-cart"></span></a> <a
-										class="btn wishlist" href="#"><span
-										class="glyphicon glyphicon-heart"></span></a> <a
-										class="btn compare" href="#"><span
-										class="glyphicon glyphicon-transfer"></span></a>
-								</div>
-								<div class="caption">
-									<div class="name">
-										<h3>
-											<a href="ProductDetailServlet?ProductID=1">魅族 PRO 7</a>
-										</h3>
-									</div>
-									<div class="price">
-										￥2880<span>￥4880</span>
-									</div>
-									<div class="rating">
-										<span class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star-empty"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-							<div class="product">
-								<div class="image">
-									<a href="ProductDetailServlet?ProductID=4"><img
-										src="phoneimg/00/C6/Cix_s1hGE9KAJ1E-AAv78Kz1Hok651.png@240x240.jpg" /></a>
-								</div>
-								<div class="buttons">
-									<a class="btn cart" href="#"><span
-										class="glyphicon glyphicon-shopping-cart"></span></a> <a
-										class="btn wishlist" href="#"><span
-										class="glyphicon glyphicon-heart"></span></a> <a
-										class="btn compare" href="#"><span
-										class="glyphicon glyphicon-transfer"></span></a>
-								</div>
-								<div class="caption">
-									<div class="name">
-										<h3>
-											<a href="ProductDetailServlet?ProductID=4">魅蓝 Note 5</a>
-										</h3>
-									</div>
-									<div class="price">
-										￥899<span>￥980</span>
-									</div>
-									<div class="rating">
-										<span class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star-empty"></span><span
-											class="glyphicon glyphicon-star-empty"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-							<div class="product">
-								<div class="image">
-									<a href="ProductDetailServlet?ProductID=7"><img
-										src="phoneimg/00/2C/Cgbj0VkAUNiAQhISAAla6NENI0Q072.png@240x240.jpg" /></a>
-								</div>
-								<div class="buttons">
-									<a class="btn cart" href="#"><span
-										class="glyphicon glyphicon-shopping-cart"></span></a> <a
-										class="btn wishlist" href="#"><span
-										class="glyphicon glyphicon-heart"></span></a> <a
-										class="btn compare" href="#"><span
-										class="glyphicon glyphicon-transfer"></span></a>
-								</div>
-								<div class="caption">
-									<div class="name">
-										<h3>
-											<a href="ProductDetailServlet?ProductID=7">魅蓝 E2</a>
-										</h3>
-									</div>
-									<div class="price">
-										￥1299<span>$2098</span>
-									</div>
-									<div class="rating">
-										<span class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star-empty"></span><span
-											class="glyphicon glyphicon-star-empty"></span><span
-											class="glyphicon glyphicon-star-empty"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-							<div class="product">
-								<div class="image">
-									<a href="ProductDetailServlet?ProductID=10"><img
-										src="phoneimg/00/A0/Cix_s1gaoBuAJthwAA1jPCtyxxQ181.png@240x240.jpg" /></a>
-								</div>
-								<div class="buttons">
-									<a class="btn cart" href="#"><span
-										class="glyphicon glyphicon-shopping-cart"></span></a> <a
-										class="btn wishlist" href="#"><span
-										class="glyphicon glyphicon-heart"></span></a> <a
-										class="btn compare" href="#"><span
-										class="glyphicon glyphicon-transfer"></span></a>
-								</div>
-								<div class="caption">
-									<div class="name">
-										<h3>
-											<a href="ProductDetailServlet?ProductID=10">魅族 PRO 6s</a>
-										</h3>
-									</div>
-									<div class="price">
-										￥2299<span>￥3299</span>
-									</div>
-									<div class="rating">
-										<span class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span><span
-											class="glyphicon glyphicon-star"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<%
+						if (request.getSession().getAttribute("RandProduct") == null) {
+							response.sendRedirect("IndexProductServlet");
+						} else {
+							ArrayList<Product> list = (ArrayList<Product>) request.getSession().getAttribute("RandProduct");
+							out.print("<div class='products'>");
+							for (int i = 0; i < 4; i++) {
+								String str = "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12'><div class='product'><div class='image'><a href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID() + "'><img src='phoneimg/240x240/" + list.get(i).getProductID()
+										+ list.get(i).getProductColor()
+										+ "@240x240.jpg' /></a></div><div class='buttons'><a class='btn cart' href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID()
+										+ "'><span class='glyphicon glyphicon-shopping-cart'>查看详情</span></a></div><div class='caption'><div class='name'><h3><a href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID() + "'>" + list.get(i).getProductName() + " "
+										+ list.get(i).getProductColor() + "</a></h3></div><div class='price'>￥"
+										+ list.get(i).getProductPrice() + "<span>￥" + (list.get(i).getProductPrice() + 1000)
+										+ "</span></div><div class='rating'><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star-empty'></span></div></div></div></div>";
+								out.print(str);
+							}
+							out.print("</div>");
+							out.print("<div class='products'>");
+							for (int i = 4; i < 8; i++) {
+								String str = "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12'><div class='product'><div class='image'><a href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID() + "'><img src='phoneimg/240x240/" + list.get(i).getProductID()
+										+ list.get(i).getProductColor()
+										+ "@240x240.jpg' /></a></div><div class='buttons'><a class='btn cart' href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID()
+										+ "'><span class='glyphicon glyphicon-shopping-cart'>查看详情</span></span></a></div><div class='caption'><div class='name'><h3><a href='ProductDetailServlet?ProductID="
+										+ list.get(i).getProductID() + "'>" + list.get(i).getProductName() + " "
+										+ list.get(i).getProductColor() + "</a></h3></div><div class='price'>￥"
+										+ list.get(i).getProductPrice() + "<span>￥" + (list.get(i).getProductPrice() + 1000)
+										+ "</span></div><div class='rating'><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star-empty'></span></div></div></div></div>";
+								out.print(str);
+							}
+							out.print("</div>");
+						}
+					%>
+					<!-- 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<div class="product">
+												<div class="image"><a href="ProductDetailServlet?ProductID=10"><img src="phoneimg/00/A0/Cix_s1gaoBuAJthwAA1jPCtyxxQ181.png@240x240.jpg" /></a></div>
+												<div class="buttons">
+													<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+													<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
+													<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
+												</div>
+												<div class="caption">
+													<div class="name"><h3><a href="ProductDetailServlet?ProductID=10">魅族 PRO 6s</a></h3></div>
+													<div class="price">￥2299<span>￥3299</span></div>
+													<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
+												</div>
+											</div>
+										</div>
+									 -->
+
 				</div>
 			</div>
 			<div class="row">
@@ -355,7 +299,7 @@
 									<a href="product.jsp"><img src="images/iphone.png" /></a>
 								</div>
 								<div class="buttons">
-									<a class="btn cart" href="#"><span
+									<a class="btn cart" href=""><span
 										class="glyphicon glyphicon-shopping-cart"></span></a> <a
 										class="btn wishlist" href="#"><span
 										class="glyphicon glyphicon-heart"></span></a> <a

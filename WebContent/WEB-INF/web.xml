@@ -124,4 +124,24 @@
     <servlet-name>DoSearchCustomerServlet</servlet-name>
     <url-pattern>/DoSearchCustomerServlet</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>CreateOrderServlet</display-name>
+    <servlet-name>CreateOrderServlet</servlet-name>
+    <servlet-class>com.flyme.servlet.CreateOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateOrderServlet</servlet-name>
+    <url-pattern>/CreateOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductServlet</display-name>
+    <servlet-name>ProductServlet</servlet-name>
+    <servlet-class>com.flyme.servlet.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductServlet</servlet-name>
+    <url-pattern>/ProductServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

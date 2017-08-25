@@ -14,7 +14,7 @@ import com.flyme.util.DBPool;
 
 public class BaseDao<T> {
 	Class<T> clazz;
-
+	Connection conn = null;
 	// 反射获得clazz
 	@SuppressWarnings("unchecked")
 	public BaseDao() {
@@ -46,9 +46,29 @@ public class BaseDao<T> {
 		}
 	}
 
-	// 执行DML语句
+
+	public int executeUpdateCon(Connection con ,String sql, Object[] param) {
+		PreparedStatement pstmt = null;
+		int num = 0;
+		try {
+			conn =con;
+			pstmt = conn.prepareStatement(sql);
+			if (param != null) {
+				for (int i = 0; i < param.length; i++) {
+					pstmt.setObject(i + 1, param[i]);
+				}
+			}
+			num = pstmt.executeUpdate();
+			printSql(sql, param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeAll(null, pstmt, null);
+		}
+		return num;
+	}
 	public int executeUpdate(String sql, Object[] param) {
-		Connection conn = null;
+		
 		PreparedStatement pstmt = null;
 		int num = 0;
 
@@ -72,7 +92,6 @@ public class BaseDao<T> {
 
 	// 执行预编译DQL语句
 	public List<T> executeQuery(String sql, Object[] param) {
-		Connection conn = null;
 		PreparedStatement stat = null;
 		ResultSet rs = null;
 		List<T> list = new ArrayList<T>();
@@ -107,7 +126,6 @@ public class BaseDao<T> {
 
 	// 执行无条件sql语句（分页使用）
 	public List<T> executeQuery(String sql) {
-		Connection conn = null;
 		PreparedStatement stat = null;
 		ResultSet rs = null;
 		List<T> list = new ArrayList<T>();
@@ -136,7 +154,6 @@ public class BaseDao<T> {
 
 	// 获得所有记录条数(分页使用)
 	public int executeQueryCount(String sql) {
-		Connection conn = null;
 		PreparedStatement stat = null;
 		ResultSet rs = null;
 		try {

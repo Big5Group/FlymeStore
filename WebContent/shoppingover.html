@@ -1,0 +1,425 @@
+<html>
+<head>
+<title>后台管理</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.5.2/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="jquery-easyui-1.5.2/themes/icon.css">
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+<!-- Custom CSS -->
+
+<!-- Custom Fonts -->
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
+
+<!-- Core JavaScript Files -->
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<!--Header-->
+	<header class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div id="logo">
+					<img src="images/logo.png" />
+				</div>
+			</div>
+			<div class="col-md-8">
+				<h1 class="text-left ">
+					<strong>MobileShop商城后台管理系统</strong>
+				</h1>
+			</div>
+		</div>
+	</header>
+
+	<div>
+		<div class="easyui-tabs" id="tabsMain" data-options="tabWidth:112">
+			<div title="用户管理" style="padding: 10px; height: 500px;"
+				class=" tabs-cont-noborder">
+				<table id="mTb" class="easyui-datagrid" width="100%"
+					url="DoSearchCustomerServlet?f=query" toolbar="#toolbar"
+					pagination="true" rownumbers="true" fitColumns="true"
+					singleSelect="true" pageSize="10" pageList="[3,5,8,10]">
+					<thead>
+						<tr>
+							<th field="CustomerID" width="50" data-options="hidden: true">CustomerID</th>
+							<th field="CallName" width="50">CallName</th>
+							<th field="CustomPass" width="50">CustomPass</th>
+							<th field="Email" width="50">Email</th>
+							<th field="CustomSex" width="50">CustomSex</th>
+							<th field="FoundDate" width="50">FoundDate</th>
+							<th field="State" width="50">State</th>
+						</tr>
+					</thead>
+				</table>
+				<div id="toolbar">
+					<a type="button" class="easyui-linkbutton" iconCls="icon-add"
+						plain="true" onclick="newUser()">新增</a> <a type="button"
+						class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+						onclick="editUser()">修改</a> <a type="button"
+						class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+						onclick="removeUser()">删除</a>
+
+				</div>
+				<div id="dlg" class="easyui-dialog"
+					style="width: 400px; height: 280px; padding: 10px 20px"
+					closed="true" buttons="#dlg-buttons">
+					<div class="ftitle">用户信息</div>
+
+
+
+					<form id="fm" method="post">
+						<div class="fitem">
+							<label>昵称:</label> <input name="CallName"
+								class="easyui-validatebox" required="true">
+						</div>
+						<div class="fitem">
+							<label>密码:</label> <input name="CustomPass"
+								class="easyui-validatebox" required="true">
+						</div>
+						<div class="fitem">
+							<label>邮箱:</label> <input name="Email" class="easyui-validatebox"
+								required="true">
+						</div>
+						<div class="fitem">
+							<label>性别:</label> <input name="CustomSex"
+								class="easyui-validatebox" required="true">
+						</div>
+						<div class="fitem">
+							<label>日期:</label> <input name="FoundDate"
+								class="easyui-validatebox" required="true">
+						</div>
+						<div class="fitem">
+							<label>状态:</label> <input name="State" class="easyui-validatebox"
+								required="true">
+						</div>
+					</form>
+				</div>
+				<div id="dlg-buttons">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+						onclick="saveUser()">提交</a> <a href="#" class="easyui-linkbutton"
+						iconCls="icon-cancel"
+						onclick="javascript:$('#dlg').dialog('close')">取消</a>
+				</div>
+			</div>
+			<script type="text/javascript">
+	var url;
+	function newUser() {
+		$('#dlg').dialog('open').dialog('setTitle', '新增');
+		$('#fm').form('clear');
+		url = 'DoSearchCustomerServlet?f=add';
+	}
+	function editUser() {
+		var row = $('#mTb').datagrid('getSelected');
+		if (row) {
+			$('#dlg').dialog('open').dialog('setTitle', '修改');
+			$('#fm').form('load', row);
+			url = 'DoSearchCustomerServlet?f=update&id=' + row.CustomerID;
+		}
+	}
+
+
+	function saveUser(){
+		$("#fm").form('submit', {
+			url : url,
+			onSubmit : function() {
+				return $(this).form('validate');
+			},
+			success : function(result) {
+				if(result==0){
+					alert("insert error");
+				}
+				else{
+					$("#dlg").dialog('close');
+					$("#mTb").datagrid('reload');
+				}
+			}
+		})
+	}
+	
+	
+	
+	function removeUser() {
+		var row = $('#mTb').datagrid('getSelected');
+		if (row) {
+			$.messager.confirm('确认', '您确定要删除吗？', function(r) {
+				if (r) {
+					$.post('DoSearchCustomerServlet?f=delete', {
+						id : row.CustomerID
+					}, function(result) {
+						if (result.success) {
+							$.messager.show({ // show error message
+								title : '提示',
+								msg : result.message
+							});
+							$('#mTb').datagrid('reload'); // reload the user data
+						} else {
+							$.messager.show({ // show error message
+								title : '提示',
+								msg : result.message
+							});
+						}
+					}, 'json');
+				}
+			});
+		}
+	}
+    function pagerFilter(data){
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){    // 判断数据是否是数组
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var  = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage:function(pageNum, pageSize){
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
+                dg.datagrid('loadData',data);
+            }
+        });
+        if (!data.originalRows){
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+
+    $(function(){//加载数据
+        $('#mTb').datagrid({loadFilter:pagerFilter})
+    });
+</script>
+
+			<div title="商品管理" style="padding: 10px">
+				<table id="dg" class="easyui-datagrid" width="100%"
+					url="ProductServlet?f=query" toolbar="#toolbar1" pagination="true"
+					rownumbers="true" fitColumns="true" singleSelect="true"
+					pageSize="10" pageList="[3,5,8,10]">
+					<thead>
+						<tr>
+							<th field="ProductID" width="50">商品ID</th>
+							<th field="ProductName" width="50">商品名</th>
+							<th field="ProductCate" width="50">商品类别</th>
+							<th field="ProductPrice" width="50">商品价格</th>
+							<th field="ProductColor" width="50">商品颜色</th>
+							<th field="ProductNum" width="50">商品库存</th>
+						</tr>
+					</thead>
+				</table>
+				<div id="toolbar1">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-add"
+						plain="true" onclick="addPro()">新建商品</a> <a href="#"
+						class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+						onclick="updatePro()">编辑商品</a> <a href="#"
+						class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+						onclick="deletePro()">删除商品</a>
+				</div>
+				<div id="dlg1" class="easyui-dialog"
+					style="width: 500px; height: 280px; padding: 10px 20px;"
+					closed="true" buttons="#dlg-buttons">
+					<div class="ftitle">Product Information</div>
+					<form id="fm1" method="post" novalidate>
+						<div class="fitem">
+							<label>商品ID:</label> <input name="ProductID"
+								class="easyui-textbox" required="true">
+						</div>
+						<div class="fitem">
+							<label>商品名:</label> <input name="ProductName"
+								class="easyui-textbox">
+						</div>
+						<div class="fitem">
+							<label>商品类别:</label> <input name="ProductCate"
+								class="easyui-textbox">
+						</div>
+						<div class="fitem">
+							<label>商品价格:</label> <input name="ProductPrice"
+								class="easyui-textbox">
+						</div>
+						<div class="fitem">
+							<label>商品颜色:</label> <input name="ProductColor"
+								class="easyui-textbox">
+						</div>
+						<div class="fitem">
+							<label>商品库存:</label> <input name="ProductNum"
+								class="easyui-textbox">
+						</div>
+					</form>
+				</div>
+				<div id="dlg-buttons">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-ok"
+						onclick="savePro()">保存</a> <a href="#" class="easyui-linkbutton"
+						iconCls="icon-cancel"
+						onclick="javascript:$('#dlg').dialog('close')">返回</a>
+				</div>
+			</div>
+			<script type="text/javascript">
+
+	    var url;
+	    function addPro(){
+	        $('#dlg1').dialog('open').dialog('setTitle','新增商品');
+	        $('#fm1').form('clear');
+	        url = 'ProductServlet?f=addUser';
+	    }
+	    function updatePro(){
+	        var row = $('#dg').datagrid('getSelected');
+	        if (row){
+	            $('#dlg1').dialog('open').dialog('setTitle','修改商品');
+	            $('#fm1').form('load',row);
+	            url = 'ProductServlet?f=updateUser&ProductID=' + row.ProductID;
+	        }
+	    }
+	    function savePro(){
+	        $('#fm1').form('submit',{
+	            url: url,
+	            onSubmit: function(){
+	                return $(this).form('validate');
+	            },
+	            success: function(result){
+	                var result = eval('('+result+')');
+	                if (result.errorMsg){
+	                    $.messager.show({
+	                        title: 'eee',
+	                        msg: result.errorMsg
+	                    });
+	                } else {
+	                    $('#dlg1').dialog('close');		// close the dialog
+	                    $('#dg').datagrid('reload');	// reload the user data
+	                }
+	            }
+	        });
+	    }
+	    
+	    
+	    function deletePro(){
+	        var row = $('#dg').datagrid('getSelected');
+	        if (row){
+	            $.messager.confirm('Confirm','确认要删除这件商品的信息吗?',function(r){
+	                if (r){
+	                    $.post('ProductServlet?f=deleteUser',{ProductID:row.ProductID},function(result){
+	                        if (result.success){
+	                            $('#dg').datagrid('reload');	// reload the user data
+	                        } else {
+	                            $.messager.show({	// show error message
+	                                title: 'eeee',
+	                                msg: result.errorMsg
+	                            });
+	                        }
+	                    },'json');
+	                }
+	            });
+	        }
+	    }
+		</script>
+
+		</div>
+
+
+	</div>
+
+
+
+	<footer>
+		<div class="container">
+			<div class="wrap-footer">
+				<div class="row">
+					<div class="col-md-3 col-footer footer-1">
+						<img src="images/logofooter.png" />
+						<p>Lorem Ipsum is simply dummy text of the printing and
+							typesetting industry.Lorem Ipsum is simply dummy text of the
+							printing and typesetting industry.</p>
+					</div>
+					<div class="col-md-3 col-footer footer-2">
+						<div class="heading">
+							<h4>Customer Service</h4>
+						</div>
+						<ul>
+							<li><a href="#">About Us</a></li>
+							<li><a href="#">Delivery Information</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Terms & Conditions</a></li>
+							<li><a href="#">Contact Us</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3 col-footer footer-3">
+						<div class="heading">
+							<h4>My Account</h4>
+						</div>
+						<ul>
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Brands</a></li>
+							<li><a href="#">Gift Vouchers</a></li>
+							<li><a href="#">Specials</a></li>
+							<li><a href="#">Site Map</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3 col-footer footer-4">
+						<div class="heading">
+							<h4>Contact Us</h4>
+						</div>
+						<ul>
+							<li><span class="glyphicon glyphicon-home"></span>California,
+								United States 3000009</li>
+							<li><span class="glyphicon glyphicon-earphone"></span>+91
+								8866888111</li>
+							<li><span class="glyphicon glyphicon-envelope"></span>infor@yoursite.com</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						Copyright &copy; 2015.Company name All rights reserved.<a
+							target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+					</div>
+					<div class="col-md-6">
+						<div class="pull-right">
+							<ul>
+								<li><img src="images/visa-curved-32px.png" /></li>
+								<li><img src="images/paypal-curved-32px.png" /></li>
+								<li><img src="images/discover-curved-32px.png" /></li>
+								<li><img src="images/maestro-curved-32px.png" /></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+
+
+</body>
+</html>

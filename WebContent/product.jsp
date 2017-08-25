@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@page import="com.flyme.entity.*"%>
+<%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,6 +30,7 @@
     <script src="js/bootstrap.min.js"></script>
     
     <script src="js/photo-gallery.js"></script>
+    
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,17 +40,7 @@
     <![endif]-->
 </head>
 <body>
-	<script type="text/javascript">
-		window.onload = function(){
-			var account = req. ;
-			if(account!=null)
-			{
-				alert("OK");
-			}else{
-				alert("null");
-			}
-		}
-	</script>
+	
 	<!--Top-->
 	<nav id="top">
 		<div class="container">
@@ -61,13 +53,15 @@
 
 				<div class="col-xs-6">
 					<ul class="top-link">
-						<%	if(session.getAttribute("customer")!=null){
-								out.print("<li><a href='#'><span class='glyphicon glyphicon-user'></span>"+((Customer)request.getSession().getAttribute("customer")).getCallName() + "</a></li>");
-							}else{
+						<%
+							if(session.getAttribute("customer")!=null){
+								out.print("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span>"+ ((Customer) request.getSession().getAttribute("customer")).getCallName() + 
+							"</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'><ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
+							} else {
 								out.print("<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
 							}
 						%>
-						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> 个人信息</a></li>
 					</ul>
 				</div>
 			</div>
@@ -86,7 +80,7 @@
 				</form>
 			</div>
 			<div class="col-md-4">
-				<div id="cart"><a class="btn btn-1" href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span>CART : 0 ITEM</a></div>
+				<div id="cart"><a class="btn btn-1" href="<%if(session.getAttribute("customer")!=null){out.print("AddCartServlet");}else{out.print("account.jsp");} %>"><span class="glyphicon glyphicon-shopping-cart"></span>CART : <% if(session.getAttribute("cart")!=null){out.print(((HashMap)request.getSession().getAttribute("cart")).size());}else{out.print("0");} %>  ITEM</a></div>
 			</div>
 		</div>
 	</header>
@@ -99,44 +93,11 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="index.jsp">首页</a></li>
-					<!--
-                    	作者：295052909@qq.com
-                    	时间：2017-08-22
-                    	描述：个人电脑
-                    -->
-					<!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">PC Computers</a>
-						<div class="dropdown-menu">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Window</a></li>
-									<li><a href="category.html">MacBook</a></li>
-								</ul>
-							</div>
-						</div>
-					</li>-->
-					<!--
-                    	作者：295052909@qq.com
-                    	时间：2017-08-22
-                    	描述：笔记本电脑
-                    -->
-					<!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Laptops &amp; Notebooks</a>
-						<div class="dropdown-menu">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Dell</a></li>
-									<li><a href="category.html">Asus</a></li>
-									<li><a href="category.html">Samsung</a></li>
-									<li><a href="category.html">Lenovo</a></li>
-									<li><a href="category.html">Acer</a></li>
-								</ul>
-							</div> 
-						</div>
-					</li>-->
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">手机型号</a>
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Meizu</a></li>
+									<li><a href="CategoryServlet">Meizu</a></li>
 									<li><a href="category.html">Samsung(无货)</a></li>
 									<li><a href="category.html">Nokia(无货)</a></li>
 									<li><a href="category.html">Lenovo(无货)</a></li>
@@ -173,22 +134,9 @@
 					<div class="product">
 						<div class="col-md-6">
 							<div class="image">
-								<img src="<%="phoneimg/"+ ((Product)request.getSession().getAttribute("Product")).getProductID() + ((Product)request.getSession().getAttribute("Product")).getProductColor()+".jpg"%>" />
+								<img src="<%="phoneimg/680x680/"+ ((Product)request.getSession().getAttribute("Product")).getProductID() + ((Product)request.getSession().getAttribute("Product")).getProductColor()+"@680x680.jpg"%>" />
 								<div class="image-more">
 									 <ul class="row">
-						<!-- 
-									 <li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/galaxy-note-1.jpg"></a>
-										</li>
-											<a href="#"><img class="img-responsive" src="images/galaxy-note-2.jpg"></a>
-										</li>
-										 <li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/galaxy-note-3.jpg"></a>
-										</li>
-										 <li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/galaxy-note-4.jpg"></a>
-										</li>
-						 -->		
 									</ul>
 								</div>
 							</div>
@@ -199,7 +147,7 @@
 								<div class="info">
 									<ul>
 									
-										<li>Brand:<%=((Product)request.getSession().getAttribute("Product")).getProductName() %></li>
+										<li>Brand:<%=((Product)request.getSession().getAttribute("Product")).getProductName()+" "+((Product)request.getSession().getAttribute("Product")).getProductColor() %></li>
 										<li>ID:<%=((Product)request.getSession().getAttribute("Product")).getProductID() %></li>
 									</ul>
 								</div>
@@ -213,7 +161,11 @@
 					 	-->			</select>
 								</div>
 								<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-								<div class="well"><label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="AddCartServlet" class="btn btn-2 ">ADD</a></div>
+								
+								<div class="well"><label>Qty: </label> <input class="form-inline quantity" type="text" value="1">
+								<a href="<% if(session.getAttribute("customer")!=null){out.print("AddCartServlet");} else {out.print("account.jsp");}%>" class='btn btn-2 '>添加到购物车</a>
+
+								</div>
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
 									<a href="#" class="share-btn" target="_blank">

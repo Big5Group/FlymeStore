@@ -18,6 +18,11 @@ public class Customer {
 	public Customer() {
 		super();
 	}
+	
+	public Customer(String callName){
+		super();
+		CallName=callName;
+	}
 
 	public Customer(String callName, String customPass) {
 		super();

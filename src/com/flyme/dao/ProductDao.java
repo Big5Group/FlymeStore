@@ -47,8 +47,47 @@ public class ProductDao extends BaseDao<Product> {
 	 * 
 	 * @return
 	 */
-	public List<Product> listAll() {
+	public List<Product> listNine() {
 		List<Product> list = super.executeQuery("select * from fm_product order by rand() limit 9", null);
 		return list;
+	}
+
+	/**
+	 * 获取全部产品
+	 * 
+	 * @return
+	 */
+	public List<Product> listAll() {
+		List<Product> list = super.executeQuery("select * from fm_product", null);
+		return list;
+	}
+
+	public List<Product> queryAll() {
+		List<Product> list = executeQuery("select * from fm_product");
+		return list;
+	}
+
+	public int add(Product info) throws ClassNotFoundException {
+
+		return executeUpdate(
+				"insert into fm_product(ProductID,ProductName,ProductCate,ProductPrice,ProductColor,ProductNum) values(?,?,?,?,?,?)",
+				new Object[] { info.getProductID(), info.getProductName(), info.getProductCate(),
+						info.getProductPrice(), info.getProductColor(), info.getProductNum() });
+
+	}
+
+	public int update(Product info, int id) {
+
+		return executeUpdate(
+				"update fm_product set ProductID=?,ProductName=?,ProductCate=?,ProductPrice=?,ProductColor=?,ProductNum=?  where ProductID=?",
+				new Object[] { info.getProductID(), info.getProductName(), info.getProductCate(),
+						info.getProductPrice(), info.getProductColor(), info.getProductNum(), id });
+
+	}
+
+	public int delete(int id) {
+
+		return executeUpdate("delete from fm_product where ProductID=?", new Object[] { id });
+
 	}
 }

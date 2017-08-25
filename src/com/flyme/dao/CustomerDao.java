@@ -38,6 +38,13 @@ public class CustomerDao extends BaseDao<Customer> {
 		return list.size() > 0 ? true : false;
 
 	}
+	
+	public boolean checkUser(String callName) {
+		List<Customer> list = executeQuery("select * from fm_customer where callName = ?;",
+				new Object[] { callName});
+		return list.size() > 0 ? true : false;
+
+	}
 
 	/**
 	 * 根据用户名查找用户信息
@@ -121,6 +128,8 @@ public class CustomerDao extends BaseDao<Customer> {
 	public int deleteUser(int id) {
 		return super.executeUpdate("delete from fm_customer where CustomerID=?", new Object[] {id});
 	}
+	
+	
 
 	public void selectCustomerInfoWithID(int id) {
 

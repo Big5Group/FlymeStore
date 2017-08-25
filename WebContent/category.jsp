@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@page import="com.flyme.entity.Customer"%>
+<%@page import="com.flyme.entity.*"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,29 +55,43 @@
 								out.print("<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
 							}
 						%>
-						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+						<li><a href="contact.jsp"><span class="glyphicon glyphicon-envelope"></span> 个人信息</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</nav>
 	<!--Header-->
-	<header class="container">
-		<div class="row">
-			<div class="col-md-4">
-				<div id="logo"><img src="images/logo.png" /></div>
-			</div>
-			<div class="col-md-4">
-				<form class="form-search">  
-					<input type="text" class="input-medium search-query">  
-					<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>  
-				</form>
-			</div>
-			<div class="col-md-4">
-				<div id="cart"><a class="btn btn-1" href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span>CART : 0 ITEM</a></div>
-			</div>
-		</div>
-	</header>
+    <header class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="logo"><img src="images/logo.png" /></div>
+            </div>
+            <div class="col-md-4">
+                <form class="form-search">  
+                    <input type="text" class="input-medium search-query">  
+                    <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>  
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div id="cart"><a class="btn btn-1" href="
+                    <%  if(session.getAttribute("customer")!=null) {
+                    	   out.print("AddCartServlet");
+                        } else {
+                        	  out.print("account.jsp");
+                        } %>">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        CART : 
+                    <% if(session.getAttribute("cart")!=null) {
+                    	out.print(((HashMap)request.getSession().getAttribute("cart")).size());
+                        } else {
+                        	out.print("0");
+                        } 
+                    %>  ITEM</a>
+                </div>
+            </div>
+        </div>
+    </header>
 	<!--Navigation-->
     <nav id="menu" class="navbar">
 		<div class="container">
@@ -113,7 +128,7 @@
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Meizu</a></li>
+									<li><a href="category.jsp">Meizu</a></li>
 									<li><a href="#">Samsung(无货)</a></li>
 									<li><a href="#">Nokia(无货)</a></li>
 									<li><a href="#">Lenovo(无货)</a></li>
@@ -131,10 +146,6 @@
 			</div>
 		</div>
 	</nav>
-	<%
-		
-		
-	%>	
 	<div id="page-content" class="single-page">
 		<div class="container">
 			<div class="row">
@@ -147,168 +158,39 @@
 			</div>
 			<div class="row">
 				<div id="main-content" class="col-md-8">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="products">
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/iphone.png" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-s4.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-note.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="products">
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/iphone.png" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-s4.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-note.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="products">
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/iphone.png" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-s4.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4 col-md-4 col-xs-12">
-									<div class="product">
-										<div class="image"><a href="product.html"><img src="images/galaxy-note.jpg" /></a></div>
-										<div class="buttons">
-											<a class="btn cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-											<a class="btn wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a>
-											<a class="btn compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a>
-										</div>
-										<div class="caption">
-											<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-											<div class="price">$122<span>$98</span></div>
-											<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row text-center">
-						<ul class="pagination">
-						  <li class="active"><a href="#">1</a></li>
-						  <li><a href="#">2</a></li>
-						  <li><a href="#">3</a></li>
-						  <li><a href="#">4</a></li>
-						  <li><a href="#">5</a></li>
-						</ul>
-					</div>
+				<%
+                    if(request.getSession().getAttribute("categoryProduct")==null){
+                        response.sendRedirect("CategoryServlet?page=1");
+                    }else{
+                        ArrayList<Product> list =(ArrayList<Product>) request.getSession().getAttribute("categoryProduct"); 
+                        int pagesize = (Integer)request.getSession().getAttribute("pagesize");
+                        int num2 = (Integer)request.getSession().getAttribute("num2");
+                        int nowpage = (Integer)request.getSession().getAttribute("nowpage");
+                        String str = "";
+                        for(int i=0;i<num2;i++){
+                            if(i%3==0){str+="<div class='row'><div class='col-md-12'><div class='products'>";}      
+                            str+="<div class='col-lg-4 col-md-4 col-xs-12'><div class='product'><div class='image'><a href='ProductDetailServlet?ProductID="+list.get(i).getProductID() + "'><img src='phoneimg/240x240/"+list.get(i).getProductID()+ list.get(i).getProductColor() +"@240x240.jpg' /></a></div><div class='buttons'><a class='btn cart' href='ProductDetailServlet?ProductID="+list.get(i).getProductID() + "'><span class='glyphicon glyphicon-shopping-cart'>查看详情</span></a></div><div class='caption'><div class='name'><h3><a href='ProductDetailServlet?ProductID="+list.get(i).getProductID() +"'>" + list.get(i).getProductName()+" " +list.get(i).getProductColor()+ "</a></h3></div><div class='price'>￥"+list.get(i).getProductPrice()+"<span>￥"+ (list.get(i).getProductPrice()+ 1000) +"</span></div><div class='rating'><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star'></span><span class='glyphicon glyphicon-star-empty'></span></div></div></div></div>";
+                            if((i+1)%3==0||i==(num2-1)){
+                                str+="</div></div></div>";
+                            }
+                                    
+                        }
+                        str+="<div class='row text-center'><ul class='pagination'>";
+                        for(int i=0;i<pagesize;i++){
+                            if((i+1)!=nowpage){
+                                str+="<li class=''><a href='CategoryServlet?page="+(i+1)+"'>"+(i+1)+"</a></li>";
+                            }else{
+                                str+="<li class='active'><a href='CategoryServlet?page="+(i+1)+"'>"+(i+1)+"</a></li>";
+                            }
+                            
+                        }
+                        str+="</ul></div>";
+                        
+                        
+                        
+                        out.print(str);
+                    }           
+                %>
 				</div>
 				<div id="sidebar" class="col-md-4">
 					<div class="widget wid-categories">

@@ -1,0 +1,264 @@
+<html>
+<head>
+    <title>第一个bootstar程序</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css">
+  
+    <link rel="stylesheet" type="text/css" href="css/color.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link href="css/shopo.css" type="text/css" rel="stylesheet">
+    <![endif]-->
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"  type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"  type="text/css">
+    <link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
+
+    <!-- jQuery and Modernizr-->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery.easyui.min.js"></script>
+    <!-- Core JavaScript Files -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<nav id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <select class="language">
+                    <option value="English" selected>English</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                </select>
+                <select class="currency">
+                    <option value="USD" selected>USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="DDD">DDD</option>
+                </select>
+            </div>
+            <div class="col-xs-6">
+                <ul class="top-link">
+                    <li><a href="account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    <li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--Header-->
+<header class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="logo"><img src="images/logo.png" /></div>
+        </div>
+        <div class="col-md-8">
+            <h1 class="text-left "><strong>MobileShop商城后台管理系统</strong></h1>
+        </div>
+    </div>
+</header>
+
+
+<div id = "mid">
+<div style="width:270px;text-align:center;" id="mid_left" >
+    <ul class="nav nav-pills nav-stacked" data-toggle="collapse" data-target="#demo" id="mid1">
+        <li class="active " ><a href="#">商品种类管理</a></li>
+        <li ><a href="#">地址一级商品种类</a></li>
+        <li><a href="#">管理一级商品种类</a></li>
+        <li><a href="#">商品分类管理</a></li>
+        <li><a href="#">商品种类查询</a></li>
+    </ul>
+    <ul class="nav nav-pills nav-stacked" id="mid2">
+        <li class="active "><a href="#">商品管理</a></li>
+        <li><a href="#">商品添加</a></li>
+        <li><a href="#">商品删除</a></li>
+        <li><a href="#">商品修改</a></li>
+        <li><a href="#">商品查询</a></li>
+    </ul>
+    <ul class="nav nav-pills nav-stacked" id="mid3">
+        <li class="active "><a href="#">订单管理</a></li>
+        <li><a href="#">察看订单</a></li>
+        <li><a href="#">管理订单</a></li>
+    </ul>
+    <ul class="nav nav-pills nav-stacked" id="mid4">
+        <li class="active "><a href="#">用户管理</a></li>
+        <li><a href="#">察看用户信息</a></li>
+        <li><a href="#">管理用户权限</a></li>
+    </ul>
+</div>
+
+    <div id="mid_left" class="mid_1" >
+        <ul class="breadcrumb text-left" id="mid_14">
+            <li><a href="#" id="mid_11">首页</a></li>
+            <li><a href="#" id="mid_12">商品管理</a></li>
+            <li><a href="#" id="mid_13">商品增删改查</a></li>
+        </ul>
+        </div>
+
+        <div class="easyui-dialog" style="width:800px;height:500px; " 
+             data-options="title:'My Dialog',collapsible:true,iconCls:'icon-ok',onOpen:function(){}">
+        <table id="dg" title="My Users" class="easyui-datagrid" style="width:650px;height:450px;"
+        url="OrderShowServlet?f=query"
+		toolbar="#toolbar"
+		rownumbers="true" fitColumns="true" singleSelect="true">
+            <thead>
+            <tr>
+                <th field="OrderID" width="50">订单ID</th>
+                <th field="CustomerID" width="50">用户ID</th>
+                <th field="AddressID" width="50">地址ID</th>
+                <th field="OrderTime" width="50">下单时间</th>
+                <th field="TotalPrice" width="50">订单总价</th>
+                <th field="DeliveryDate" width="50">出货日期</th>
+            	<th field="InvoiceID" width="50">发票号</th>
+            </tr>
+            </thead>
+        </table>
+        <div id="toolbar">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addUser()">新建商品</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateUser()">编辑商品</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUser()">删除商品</a>
+        </div>
+           
+        </div>
+
+    </div>
+
+
+
+<footer>
+    <div class="container">
+        <div class="wrap-footer">
+            <div class="row">
+                <div class="col-md-3 col-footer footer-1">
+                    <img src="images/logofooter.png" />
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
+                <div class="col-md-3 col-footer footer-2">
+                    <div class="heading"><h4>Customer Service</h4></div>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-footer footer-3">
+                    <div class="heading"><h4>My Account</h4></div>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Brands</a></li>
+                        <li><a href="#">Gift Vouchers</a></li>
+                        <li><a href="#">Specials</a></li>
+                        <li><a href="#">Site Map</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-footer footer-4">
+                    <div class="heading"><h4>Contact Us</h4></div>
+                    <ul>
+                        <li><span class="glyphicon glyphicon-home"></span>California, United States 3000009</li>
+                        <li><span class="glyphicon glyphicon-earphone"></span>+91 8866888111</li>
+                        <li><span class="glyphicon glyphicon-envelope"></span>infor@yoursite.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <ul>
+                            <li><img src="images/visa-curved-32px.png" /></li>
+                            <li><img src="images/paypal-curved-32px.png" /></li>
+                            <li><img src="images/discover-curved-32px.png" /></li>
+                            <li><img src="images/maestro-curved-32px.png" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    $(function(){
+        var  $cate1 = $("#mid1  li:not(:eq(0))");
+        $cate1.hide()
+        var  $cate2 = $("#mid2  li:not(:eq(0))");
+        $cate2.hide()
+        var  $cate3 = $("#mid3  li:not(:eq(0))");
+        $cate3.hide()
+        var  $cate4 = $("#mid4  li:not(:eq(0))");
+        $cate4.hide()
+
+        $("#mid1").hover(function () {
+            $cate1.show(50);
+        }, function () {
+            $cate1.hide(50);
+        });
+        $("#mid2").hover(function () {
+            $cate2.show(50);
+        }, function () {
+            $cate2.hide(50);
+        });
+        $("#mid3").hover(function () {
+            $cate3.show(50);
+        }, function () {
+            $cate3.hide(50);
+        });
+        $("#mid4").hover(function () {
+            $cate4.show(50);
+        }, function () {
+            $cate4.hide(50);
+        });
+        $(".delet").click(function () {
+
+            var $del = $(this).parent();
+                $del.remove();
+
+        })
+
+        $("#mid_left ul li").click(function () {
+            var $text1 = $(this).parent().children();
+            var $text2 = $(this);
+            $("#mid_12 ").text($text1.eq(0).text());
+            if($(this).text() == $text1.eq(0).text()){
+                $("#mid_13 ").text("");
+            }else {
+                $("#mid_13 ").text($text2.text());
+            }
+        });
+    });
+    
+    
+    var url;
+
+</script>
+
+</body>
+</html>
