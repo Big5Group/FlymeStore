@@ -27,16 +27,39 @@
     
     <!-- Core JavaScript Files -->       
     <script src="js/bootstrap.min.js"></script>
-    
+        
     <!-- Ajax -->
-    <script src="js/account.js"></script>
-
+    <!-- <script src="js/account.js"></script> -->
+    
+    <style>
+        .redBorder{border-color: red}
+    </style>
     
     <script>
-    
-        function refresh() {
-            document.getElementById("authImg").src = "getAuthCodeServlet";
-        }
+	    /* 获取验证码 */
+	    $('#refreshAuthCode').click(function() {
+	        $('#authImg').attr('src', 'getAuthCodeServlet');
+	    });
+	    /* 注册名长度 Jquery 表单验证 */
+	    var reg = /^\w{4,}$/; // 正则表达式: 至少匹配 4 位任意字母,数字,下划线
+	    $("input[name='registerName']").keyup(function() {
+	        if (!reg.test($(this).prop("value"))) {
+	            $(this).addClass("redBorder");
+	        } else {
+	            $(this).removeClass("redBorder")
+	        }
+	    });
+	    /* 注册名 Jquery 表单验证 */
+	    $("#registerName").keyup(function() {
+	        // alert("sb");
+	        $.post("doCheckServlet", {
+	            name : $("#name").val()
+	        }, function(n) {
+	            if (n == 1) {
+	                alert("用戶名已存在");
+	            }
+	        })
+	    });
     </script>
 </head>
 
@@ -156,18 +179,24 @@
                     <div class="heading"><h2>Login</h2></div>
                     <form name="form1" id="ff1" method="post" action="doLoginServlet">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username :" name="username" id="username" value="111111" required>
+                            <input type="text" class="form-control" placeholder="Username :" name="username" id="username" value="" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password :" name="password" id="password" value="111111" required>
+                            <input type="password" class="form-control" placeholder="Password :" name="password" id="password" value="" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="inputCode" placeholder="验证码 :" required>&nbsp;<img src="getAuthCodeServlet" id="authImg"/>&nbsp;<a href="#" onClick="refresh()">看不清</a>
+                            <div class="form-group">
+                                <input type="text" class="input-sm" name="inputCode" placeholder="验证码 :" required>&nbsp;&nbsp;
+                                <img src="getAuthCodeServlet" id="authImg"/>&nbsp;&nbsp;
+                                <a id="refreshAuthCode" href="#" onclick="refresh()">看不清</a>
+                            </div>
                         </div>
                         <div class="form-group">
                             
                         </div>
-                        <input type="button" value="ajax 登陆" onclick="checkUser()">
+                        <!-- TODO: Ajax
+                            <input type="button" value="ajax 登陆" onclick="checkUser()"> 
+                        -->
                         <button type="submit" class="btn btn-1" name="login" id="login">Login</button>
                         <a href="#">Forgot Your Password ?</a>
                     </form>
@@ -176,7 +205,7 @@
                     <div class="heading"><h2>New User ? Create An Account.</h2></div>
                     <form name="form2" id="ff2" method="post" action="doRegisterServlet">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name :" name="username" id="username" required>
+                            <input type="text" class="form-control" placeholder="Name :" name="registerName" id="registerName" required>
                         </div>
                         <div class="form-group">
                             <input type="email" class="form-control" placeholder="Email Address :" name="email" id="email" required>
