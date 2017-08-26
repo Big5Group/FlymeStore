@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar # 上传项目的第三方 jar 包
 *.war
 *.ear
 *.zip
