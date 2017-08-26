@@ -47,6 +47,7 @@ public class CreateOrderServlet extends HttpServlet {
 
 		if (dao.createOrder(cart, cus) == 1) {
 			out.println("<script>alert(\"订单提交成功\")</script>");
+			cart.clear();
 		} else {
 			out.println("<script>alert(\"订单提交失败\")</script>");
 		}

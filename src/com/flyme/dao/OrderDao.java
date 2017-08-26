@@ -24,6 +24,11 @@ public class OrderDao extends BaseDao<OrderMaster> {
 		boolean flag = true;
 		double total = 0;
 		int id = 0;
+		
+		if(map.size()<1)
+		{
+			return -1;
+		}
 		while (flag) {
 			id = (int) (10000 * Math.random());
 			flag = CheckOrder(id);
@@ -39,7 +44,7 @@ public class OrderDao extends BaseDao<OrderMaster> {
 				executeUpdateCon(con,
 						"insert into fm_orderDetail(OrderID,ProductID,ProductNum,ProTotaltPrice) values(?,?,?,?)",
 						new Object[] { id, pro.getProductID(), num, num * pro.getProductPrice() });
-				total = num * pro.getProductPrice();
+				total = total+num * pro.getProductPrice();
 
 			}
 			super.executeUpdateCon(con,
@@ -61,6 +66,7 @@ public class OrderDao extends BaseDao<OrderMaster> {
 		try {
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // be set as false to avo
 		closeAll(con, null, null);
