@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="javax.servlet.http.Cookie"%>
+<%@page import="java.net.URLDecoder"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	/* EL 表达式 */
+	String usename = "";
+	String password = "";
+	Cookie[] cookies = request.getCookies();
+	if (null != cookies && cookies.length > 0) {
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("username")) {
+				usename = URLDecoder.decode(cookie.getValue(), "utf-8");
+			}
+			if (cookie.getName().equals("password")) {
+				password = URLDecoder.decode(cookie.getValue(), "utf-8");
+			}
+		}
+	}
+%>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -40,6 +58,7 @@
 </style>
 
 <script>
+$(function() {
 	/* 获取验证码 */
 	$('#refreshAuthCode').click(function() {
 		$('#authImg').attr('src', 'getAuthCodeServlet');
@@ -64,6 +83,9 @@
 			}
 		})
 	});
+	/* 修改 bug */
+	
+});
 </script>
 </head>
 
@@ -198,13 +220,12 @@
 					<form name="form1" id="ff1" method="post" action="doLoginServlet">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Username :"
-								name="username" id="username"
-								value="<%=session.getAttribute("username")%>" required>
+								name="username" id="username" value="${username)" required>
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control"
 								placeholder="Password :" name="password" id="password"
-								value="<%=session.getAttribute("password")%>" required>
+								value="${password}" required>
 						</div>
 						<div class="form-group">
 							<div class="form-group">
