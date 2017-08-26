@@ -25,7 +25,6 @@ public class ProductServlet extends HttpServlet {
 	 */
 	public ProductServlet() {
 
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,9 +33,6 @@ public class ProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		ProductDao dao = new ProductDao();
@@ -67,7 +63,6 @@ public class ProductServlet extends HttpServlet {
 					jsonObject.addProperty("message", "添加失败");
 				}
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			out.write(jsonObject.toString());
@@ -115,7 +110,6 @@ public class ProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 }

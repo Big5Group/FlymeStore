@@ -26,7 +26,6 @@ public class SuperOrderServlet extends HttpServlet {
 	 * Default constructor.
 	 */
 	public SuperOrderServlet() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,9 +34,6 @@ public class SuperOrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 
 		SuperOrderDao dao = new SuperOrderDao();
@@ -54,7 +50,6 @@ public class SuperOrderServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 			doGet(request, response);
 	}
 

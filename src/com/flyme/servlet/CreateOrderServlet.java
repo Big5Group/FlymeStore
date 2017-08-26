@@ -25,7 +25,6 @@ public class CreateOrderServlet extends HttpServlet {
 	 * Default constructor.
 	 */
 	public CreateOrderServlet() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,7 +33,6 @@ public class CreateOrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Customer tem = (Customer) session.getAttribute("customer");
 		Customer cus = (Customer) new CustomerDao()
@@ -62,7 +60,6 @@ public class CreateOrderServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

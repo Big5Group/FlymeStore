@@ -17,7 +17,6 @@ public class QuitServlet extends HttpServlet {
 	 */
 	public QuitServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -26,7 +25,6 @@ public class QuitServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.getSession().removeAttribute("customer");
 		response.sendRedirect("index.jsp");
 	}
@@ -37,7 +35,6 @@ public class QuitServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

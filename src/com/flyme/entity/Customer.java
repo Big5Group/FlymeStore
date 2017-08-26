@@ -9,7 +9,7 @@ public class Customer {
 
 	private String Email;
 
-	private Integer CustomSex; // TODO: 这是干哈呢?
+	private Integer CustomSex; 
 
 	private String FoundDate;
 	// 状态

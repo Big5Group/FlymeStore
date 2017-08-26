@@ -24,7 +24,6 @@ public class DoSearchCustomerServlet extends HttpServlet {
 	 * Default constructor.
 	 */
 	public DoSearchCustomerServlet() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -33,9 +32,6 @@ public class DoSearchCustomerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
@@ -109,7 +105,6 @@ public class DoSearchCustomerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

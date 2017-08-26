@@ -31,8 +31,6 @@ public class IndexProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
 		ProductDao productdao = new ProductDao();
 		List<Product> list = productdao.getRandProduct();
 		HttpSession session = request.getSession();

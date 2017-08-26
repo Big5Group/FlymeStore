@@ -61,7 +61,6 @@ public class OrderDao extends BaseDao<OrderMaster> {
 		try {
 			con.setAutoCommit(true);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // be set as false to avo
 		closeAll(con, null, null);
