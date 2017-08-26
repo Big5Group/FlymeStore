@@ -152,7 +152,7 @@
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
 						<li><a href="index.jsp">Home</a></li>
-						<li><a href="category.html">Category : Mobile</a></li>
+						<li><a href="category.jsp">meizu</a></li>
 					</ul>
 				</div>
 			</div>

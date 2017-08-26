@@ -54,10 +54,10 @@ public class ProductDao extends BaseDao<Product> {
 	 * 
 	 * @return
 	 */
-	public List<Product> listNine() {
-		List<Product> list = executeQuery("select * from fm_product order by rand() limit 9", null);
+	public List<Product> listNine(Object[] obj){
+		List<Product> list = super.executeQuery("select * from fm_product limit ?,?", obj);
 		return list;
-	}
+ 	}
 
 	/**
 	 * 获取全部产品

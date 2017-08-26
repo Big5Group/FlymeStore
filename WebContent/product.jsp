@@ -120,9 +120,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="category.html">Category</a></li>
-						<li><a href="#">Samsung Galaxy</a></li>
+						<li><a href="index.jsp">Home</a></li>
+						<li><a href="category.jsp">meizu</a></li>
+						<li><a href="#"><%=((Product)request.getSession().getAttribute("Product")).getProductName()+" "+((Product)request.getSession().getAttribute("Product")).getProductColor() %></a></li>
 					</ul>
 				</div>
 			</div>
