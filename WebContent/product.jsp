@@ -77,7 +77,21 @@
 				</form>
 			</div>
 			<div class="col-md-4">
-				<div id="cart"><a class="btn btn-1" href="<%if(session.getAttribute("customer")!=null){out.print("AddCartServlet");}else{out.print("account.jsp");} %>"><span class="glyphicon glyphicon-shopping-cart"></span>CART : <% if(session.getAttribute("cart")!=null){out.print(((HashMap)request.getSession().getAttribute("cart")).size());}else{out.print("0");} %>  ITEM</a></div>
+				<div id="cart"><a class="btn btn-1" href="
+				<%
+				if(session.getAttribute("customer")!=null) {
+					out.print("cart.jsp");
+				} else {out.print("account.jsp");
+				} 
+				%>">
+				<span class="glyphicon glyphicon-shopping-cart">
+				</span>CART : 
+				<% 
+				if(session.getAttribute("cart")!=null) {
+					out.print(((HashMap)request.getSession().getAttribute("cart")).size());
+				} else {
+					out.print("0");
+				} %>  ITEM</a></div>
 			</div>
 		</div>
 	</header>
