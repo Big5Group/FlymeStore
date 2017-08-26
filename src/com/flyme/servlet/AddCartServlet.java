@@ -39,7 +39,7 @@ public class AddCartServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		Map<Integer, CartItem> cart = (Map<Integer, CartItem>) session.getAttribute("cart");
 		if (cart == null) { // 如果没有，则创建一个
-			cart = new HashMap<>();
+			cart = new HashMap<Integer, CartItem>();
 		}
 		CartItem item = (CartItem) cart.get(product.getProductID());// 查看购物车里是否有数据
 		if (item == null) {
