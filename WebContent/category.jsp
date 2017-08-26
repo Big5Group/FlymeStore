@@ -76,7 +76,7 @@
             <div class="col-md-4">
                 <div id="cart"><a class="btn btn-1" href="
                     <%  if(session.getAttribute("customer")!=null) {
-                    	   out.print("AddCartServlet");
+                    	   out.print("cart.jsp");
                         } else {
                         	  out.print("account.jsp");
                         } %>">
