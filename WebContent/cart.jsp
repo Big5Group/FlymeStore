@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="com.flyme.entity.*,java.util.HashMap, java.util.Map"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
 </html><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,12 +28,61 @@
 	
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
-    
-    <!-- 导入CheckSignIn判断是否已经登录 -->
-    <script src="js/CheackSignIn.jsp"></script>
 	
+	<!-- 导入CheckSignIn判断是否已经登录 -->
+    <script src="js/CheackSignIn.jsp"></script>
+    
+	<!-- 用户信息表格 CSS  -->
+    <style type="text/css">
+    	.account-div{
+    		float:float;
+    	}
+    
+    	table{
+    		text-align:center;
+    	}
+    	
+	    .account-table{  
+			width:600px;  
+			border-collapse:collapse;  
+		 }  
+		 .account-th{
+		 	width:20px
+		 	text-align=center;
+		 }
+		 .account-th-name,.account-th-phone,.account-th-address,.account-td{
+			border:#000000 1px solid  
+		 } 
+		 
+		 select{
+		 	text-align:center;
+		 }
+		 
+		 .account-submit{
+		 	margin-top:10px;
+		 	margin-left:20%;
+		 }
+		 
+		 .account-th-name{
+		 	width:120px;
+		 }
+		 
+		 .account-th-phone{
+		 	width:150px;
+		 }
+		 
+	 </style>
+	 
+	 
+	 
+	 
 </head>
 <body>
+	<%
+		if(request.getSession().getAttribute("customer")==null){
+			request.getRequestDispatcher("account.jsp").forward(request,response);
+		}
+	%>>
 	<!--Top-->
 	<nav id="top">
 		<div class="container">
@@ -41,15 +91,15 @@
 				</div>
 				<div class="col-xs-6">
 					<ul class="top-link">
-                        <%
-                            if(session.getAttribute("customer")!=null){
-                                out.print("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span>"+ ((Customer) request.getSession().getAttribute("customer")).getCallName() + 
-                            "</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'><ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
-                            } else {
-                                out.print("<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
-                            }
-                        %>
-						<li><a href="myinformation.jsp"><span class="glyphicon glyphicon-envelope"></span>  个人信息</a></li>
+						<%
+							if(session.getAttribute("customer")!=null){
+								out.print("<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span>"+ ((Customer) request.getSession().getAttribute("customer")).getCallName() + 
+							"</a><div class='dropdown-menu' style='center'><div class='dropdown-inner'><ul class='list-unstyled'><li><a href='QuitServlet'>&nbsp;&nbsp;quit</li></ul></div></div></li>");
+							} else {
+								out.print("<li><a href='account.jsp'><span class='glyphicon glyphicon-user'></span>My Account</a></li>");
+							}
+						%>
+						<li><a href="contact.html"><span class="glyphicon glyphicon-envelope"></span> 个人信息</a></li>
 					</ul>
 				</div>
 			</div>
@@ -68,49 +118,39 @@
 				</form>
 			</div>
 			<div class="col-md-4">
-		        <div id="cart">
-                    <a class="btn btn-1" href="<%if(session.getAttribute("customer")!=null){out.print("AddCartServlet");}else{out.print("account.jsp");} %>">
-                        <span class="glyphicon glyphicon-shopping-cart"></span>
-                        CART : <% 
-                                if(session.getAttribute("cart")!=null){out.print(((HashMap)request.getSession().getAttribute("cart")).size());}else{out.print("0");} 
-                                %>  
-                        ITEM
-                    </a>
-                </div>
+				<div id="cart"><a class="btn btn-1" href="<%if(session.getAttribute("customer")!=null){out.print("cart.jsp");}else{out.print("account.jsp");} %>"><span class="glyphicon glyphicon-shopping-cart"></span>CART : <% if(session.getAttribute("cart")!=null){out.print(((HashMap)request.getSession().getAttribute("cart")).size());}else{out.print("0");} %>  ITEM</a></div>
 			</div>
 		</div>
 	</header>
 	<!--Navigation-->
-        <nav id="menu" class="navbar">
-        <div class="container">
-            <div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
-              <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-            </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="index.jsp">首页</a></li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">手机型号</a>
-                        <div class="dropdown-menu" style="margin-left: -203.625px;">
-                            <div class="dropdown-inner">
-                                <ul class="list-unstyled">
-                                    <li><a href="category.jsp">Meizu</a></li>
-                                    <li><a href="#">Samsung(无货)</a></li>
-                                    <li><a href="#">Nokia(无货)</a></li>
-                                    <li><a href="#">Lenovo(无货)</a></li>
-                                </ul>
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Oppo(无货)</a></li>
-                                    <li><a href="#">HTC(无货)</a></li>
-                                    <li><a href="#">Iphone(无货)</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="category.html">Software</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <nav id="menu" class="navbar">
+		<div class="container">
+			<div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
+			  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+			</div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.jsp">首页</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">手机型号</a>
+						<div class="dropdown-menu" style="margin-left: -203.625px;">
+							<div class="dropdown-inner">
+								<ul class="list-unstyled">
+									<li><a href="category.jsp">Meizu</a></li>
+									<li><a href="#">Samsung(无货)</a></li>
+									<li><a href="#">Nokia(无货)</a></li>
+									<li><a href="#">Lenovo(无货)</a></li>
+								</ul>
+								<ul class="list-unstyled">
+									<li><a href="#">Oppo(无货)</a></li>
+									<li><a href="#">HTC(无货)</a></li>
+									<li><a href="#">Iphone(无货)</a></li>
+								</ul>
+							</div>
+						</div>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	<!--//////////////////////////////////////////////////-->
 	<!--///////////////////Cart Page//////////////////////-->
 	<!--//////////////////////////////////////////////////-->
@@ -126,87 +166,99 @@
 			</div>
 			
 			<%
-		    if (session.getAttribute("cart") != null) {
-		        Map<Integer, CartItem> map = (Map<Integer, CartItem>) session.getAttribute("cart");
-		        double count = 0;//显示出总价格
-		        for (Map.Entry<Integer, CartItem> entry : map.entrySet()) {
-		            //计算出每一样的书籍一共花了多少钱
-                    double price = entry.getValue().getProduct().getProductPrice() * entry.getValue().getNum();
-                    //计算出一共花了多少钱
-                    count = count + price;
+				if(session.getAttribute("cart")!=null){
+				Map<Integer,CartItem> map=(Map<Integer,CartItem>)session.getAttribute("cart");
+			    double count=0;//显示出总价格
+ 			    for(Map.Entry<Integer,CartItem> entry : map.entrySet()){
+		         //计算出每一样的书籍一共花了多少钱
+            		double price=entry.getValue().getProduct().getProductPrice()*entry.getValue().getNum();    
+			        //计算出一共花了多少钱
+			        count=count+price;
 			%>
-			 <div class="row">
-                <div class="product well">
-                    <div class="col-md-3">
-                        <div class="image">
-                            <img src="images/galaxy-note.jpg" />
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="caption">
-                            <div class="name"><h3><a href="product.jsp"><%=entry.getValue().getProduct().getProductName() %></a></h3></div>
-                            <div class="info">  
-                                <ul>
-                                    <li><%=entry.getValue().getProduct().getProductName() %></li>
-                                    <li><%=entry.getValue().getProduct().getProductID() %></li>
-                                </ul>
-                            </div>
-                            <span><label>￥: </label> <%=entry.getValue().getProduct().getProductPrice() %></span>
-                            <hr> 
-                            <form action="UpdateCartServlet">
-                                <input type="hidden" name="pID" value=<%=entry.getValue().getProduct().getProductID() %>>
-                                <label>数量: </label> 
-                                <input class="form-inline quantity" name="pNum" type="text" value=<%=entry.getValue().getNum() %>>
-                                <input type="submit" value="Update">
-                            </form>
-                            
-                            <hr>
-                        
-                            <a href="RemoveCartItem?productID=<%=entry.getValue().getProduct().getProductID()%>" class="btn btn-default pull-right">REMOVE</a>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>  
-            </div>
-        
-                <%} %>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-8 ">
-                    <center><a href="#" class="btn btn-1">Continue To Shopping</a></center>
-                </div>
-            </div>
-            <div class="row">
-                <div class="pricedetails">
-                    <div class="col-md-4 col-md-offset-8">
-                        <table>
-                            <h6>Price Details</h6>
-                            <tr>
-                                <td>Total</td>
-                                <td><%=count %>
-            <%
-		    }
-		    %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Discount</td>
-                                <td>-----</td>
-                            </tr>
-                            <tr>
-                                <td>Delivery Charges</td>
-                                <td>100.00</td>
-                            </tr>
-                            <tr style="border-top: 1px solid #333">
-                                <td><h5>TOTAL</h5></td>
-                                <td>400.00</td>
-                            </tr>
-                        </table>
-                        <center><a href="#" class="btn btn-1">Checkout</a></center>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
+			<div class="row">
+				<div class="product well">
+					<div class="col-md-3">
+						<div class="image">
+							<img src="<%="phoneimg/680x680/"+entry.getValue().getProduct().getProductID()+ entry.getValue().getProduct().getProductColor() +"@680x680.jpg" %>" />
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="caption">
+							<div class="name"><h3><a href="product.html"><%=entry.getValue().getProduct().getProductName() %></a></h3></div>
+							<div class="info">	
+								<ul>
+									<li><%=entry.getValue().getProduct().getProductName()+" "+entry.getValue().getProduct().getProductColor() %></li>
+									<li><%=entry.getValue().getProduct().getProductID() %></li>
+								</ul>
+							</div>
+							<span><label>￥: </label> <%=entry.getValue().getProduct().getProductPrice() %></span>
+							<hr> 
+							<form action="UpdateCartServlet">
+								<input type="hidden" name="pID" value=<%=entry.getValue().getProduct().getProductID() %>>
+								<label>数量: </label> 
+								<input class="form-inline quantity" name="pNum" type="text" value=<%=entry.getValue().getNum() %>>
+								<input type="submit" value="Update">
+							</form>
+							
+							<hr>
+						
+							<a href="RemoveCartItem?productID=<%=entry.getValue().getProduct().getProductID()%>" class="btn btn-default pull-right">REMOVE</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>	
+			</div>
+			<div class="account-div">
+				<form class="account-form" action="#" method="post">
+					<table class = "account-table">
+						<tr class="account-tr" >
+							<th class="account-th-name" >&#12288;&#12288;&#12288;名字</th>
+							<th class="account-th-phone" >&#12288;&#12288;&#12288;&nbsp;&nbsp;&nbsp;手机</th>
+							<th class="account-th-address" >&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;&#12288;地址</th>						
+						</tr>
+						<tr class="account-tr" >
+							<td class="account-td" ><% out.print(((ArrayList<Address>)request.getSession().getAttribute("CustomerAddress")).get(0).getCustomerName()); %></td>
+							<td class="account-td" ><% out.print(((ArrayList<Address>)request.getSession().getAttribute("CustomerAddress")).get(0).getPhoneNum()); %></td>
+							<td class="account-td" >
+								<select>
+									<%
+										ArrayList<Address> list = ((ArrayList<Address>)request.getSession().getAttribute("CustomerAddress"));
+										int size = ((ArrayList<Address>)request.getSession().getAttribute("CustomerAddress")).size();
+										String str = "<option class ='address' value ='请选择地址' selected='selected' >请选择地址";
+										for(int i=0;i<size;i++){
+											str+="<option class = 'address' value ='" + list.get(i).getProvince() + list.get(i).getCity() + list.get(i).getCountry() + list.get(i).getDetailAddress() +"'>" + list.get(i).getProvince() + list.get(i).getCity() + list.get(i).getCustomerID() + list.get(i).getDetailAddress() + "</option>";
+										}
+										out.print(str);	
+									%>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<input class="account-submit" id="submit" type="submit" value ="提交订单" >
+				</form>
+			</div>
+		<%} %>
+			<div class="row">
+				<div class="col-md-4 col-md-offset-8 ">
+					<center><a href="category.jsp" class="btn btn-1">Continue To Shopping</a></center>
+				</div>
+			</div>
+			<div class="row">
+				<div class="pricedetails">
+					<div class="col-md-4 col-md-offset-8">
+						<table>
+							<h6>Price Details</h6>
+							<tr>
+								<td>Total</td>
+								<td><%=count %><%}%></td>
+							</tr>
+						</table>
+						<center><a href="#" class="btn btn-1">Checkout</a></center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 	<footer>
 		<div class="container">
 			<div class="wrap-footer">
