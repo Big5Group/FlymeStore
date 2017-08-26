@@ -44,14 +44,14 @@ public class CustomerDao extends BaseDao<Customer> {
 	}
 
 	/**
-	 * 根据用户名查找用户信息
+	 * 根据用户名查找用户所有信息
 	 * 
 	 * @param customer
 	 * @return
 	 */
-	public Customer getuserDetilWithName(String CallName) {
+	public List<Customer> getuserDetilWithName(String CallName) {
 		List<Customer> list = executeQuery("select * from fm_customer where callName = ? ;", new Object[] { CallName });
-		return list.get(0); // 获得list的第一个Customer对象
+		return list; // 获得list的第一个Customer对象
 	}
 
 	/**

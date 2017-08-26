@@ -2,8 +2,11 @@ package com.flyme.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +39,21 @@ public class IndexServlet extends HttpServlet {
 		Customer customer = (Customer) session.getAttribute("customer");
 		PrintWriter out = response.getWriter();
 		out.println(customer);
+		
+		String usename="";
+		String password=""; 
+		Cookie[] cookies = request.getCookies();
+		if (null != cookies && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("username")) {
+					usename = URLDecoder.decode(cookie.getValue(), "utf-8");
+				}
+				if (cookie.getName().equals("password")) {
+					password = URLDecoder.decode(cookie.getValue(), "utf-8");
+				}
+			}
+		}
+		
 		response.sendRedirect("index.jsp"); // 跳转到主页
 		if (session.getAttribute("customer") != null) {
 		}
