@@ -34,6 +34,8 @@ public class doLoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 		// 1、获得表单提交的数据
 		String name = request.getParameter("username").trim();
 		String password = request.getParameter("password").trim();
@@ -44,12 +46,11 @@ public class doLoginServlet extends HttpServlet {
 		CustomerDao customerDao = new CustomerDao();
 		boolean isVaild = customerDao.checkUser(customer);
 
-		HttpSession session = request.getSession();
-		session.setAttribute("customer", customer);
-		PrintWriter out = response.getWriter();
 
 		if (request.getParameter("inputCode").equals(session.getAttribute("authCode"))) {
 			out.print("输入正确");
+			customer = customerDao.getuserDetilWithName(name); // 获取全部 Customer 信息
+			session.setAttribute("customer", customer);
 			// 4、根据数据库操作返回的结果，封装数据&页面跳转
 			if (isVaild) { // 合法用户, 重定向到 IndexServlet
 				response.sendRedirect("IndexServlet");
