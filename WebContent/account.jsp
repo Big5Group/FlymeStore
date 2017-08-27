@@ -22,71 +22,38 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Mobile Shop</title>
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-
-<!-- Custom CSS -->
-<link rel="stylesheet" href="css/style.css">
-
-
-<!-- Custom Fonts -->
-<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
-
-<!-- jQuery and Modernizr-->
-<script src="js/jquery-2.1.1.js"></script>
-
-<!-- Core JavaScript Files -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Ajax -->
-<!-- <script src="js/account.js"></script> -->
-
-<style>
-.redBorder {
-	border-color: red
-}
-</style>
-
-<script>
-$(function() {
-	/* 获取验证码 */
-	$('#refreshAuthCode').click(function() {
-		$('#authImg').attr('src', 'getAuthCodeServlet');
-	});
-	/* 注册名长度 Jquery 表单验证 */
-	var reg = /^\w{4,}$/; // 正则表达式: 至少匹配 4 位任意字母,数字,下划线
-	$("input[name='registerName']").keyup(function() {
-		if (!reg.test($(this).prop("value"))) {
-			$(this).addClass("redBorder");
-		} else {
-			$(this).removeClass("redBorder")
-		}
-	});
-	/* 注册名 Jquery 表单验证 */
-	$("#registerName").keyup(function() {
-		alert("sb");
-		$.post("doCheckServlet", {
-			name : $("#registerName").val()
-		}, function(n) {
-			if (n == 1) {
-				alert("用戶名已存在");
-			}
-		})
-	});
-	/* 修改 bug */
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="">
+	<meta name="author" content="">
 	
-});
-</script>
+	<title>Mobile Shop</title>
+	
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/style.css">
+	
+	
+	<!-- Custom Fonts -->
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"
+		type="text/css">
+	<link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
+	
+	<!-- jQuery and Modernizr-->
+	<script src="js/jquery-2.1.1.js"></script>
+	
+	<!-- Core JavaScript Files -->
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- Ajax & Jquery 表单验证 -->
+	<script src="js/account.js"></script>
+	
+	<!-- account.css -->
+	<link rel="stylesheet" href="css/account.css" type="text/css">
+
 </head>
 
 <body>
@@ -205,14 +172,6 @@ $(function() {
 	<div id="page-content" class="single-page">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<ul class="breadcrumb">
-						<li><a href="index.jsp">Home</a></li>
-						<li><a href="account.jsp">Account</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-6">
 					<div class="heading">
 						<h2>Login</h2>
@@ -220,7 +179,7 @@ $(function() {
 					<form name="form1" id="ff1" method="post" action="doLoginServlet">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Username :"
-								name="username" id="username" value="${username)" required>
+								name="username" id="username" value="${username}" required>
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control"
@@ -230,9 +189,9 @@ $(function() {
 						<div class="form-group">
 							<div class="form-group">
 								<input type="text" class="input-sm" name="inputCode"
-									placeholder="验证码 :" required>&nbsp;&nbsp; <img
-									src="getAuthCodeServlet" id="authImg" />&nbsp;&nbsp; <a
-									id="refreshAuthCode" href="#" onclick="refresh()">看不清</a>
+									placeholder="AuthCode :" required>&nbsp;&nbsp; 
+                                <img src="getAuthCode.do" id="authImg"/>&nbsp;&nbsp; 
+                                <a id="refreshAuthCode" href="" >看不清</a>
 							</div>
 						</div>
 						<div class="form-group">
@@ -280,6 +239,7 @@ $(function() {
 			</div>
 		</div>
 	</div>
+	<!-- footer -->
 	<footer>
 		<div class="container">
 			<div class="wrap-footer">

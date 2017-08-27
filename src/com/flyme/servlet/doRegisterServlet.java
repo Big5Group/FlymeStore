@@ -33,7 +33,7 @@ public class doRegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 1、获得表单提交的数据
-		String username = request.getParameter("username").trim();
+		String username = request.getParameter("registerName").trim();
 		String email = request.getParameter("email").trim();
 		Integer gender = Integer.parseInt(request.getParameter("gender").trim());
 

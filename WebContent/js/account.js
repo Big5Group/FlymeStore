@@ -2,8 +2,9 @@
 $(function() {
 	/* 获取验证码 */
 	$('#refreshAuthCode').click(function() {
-		$('#authImg').attr('src', 'getAuthCodeServlet');
+		$('#authImg').attr('src', 'getAuthCode.do');
 	});
+
 	/* 注册名长度 Jquery 表单验证 */
 	var reg = /^\w{4,}$/; // 正则表达式: 至少匹配 4 位任意字母,数字,下划线
 	$("input[name='registerName']").keyup(function() {
@@ -14,14 +15,15 @@ $(function() {
 		}
 	});
 	/* 注册名 Jquery 表单验证 */
-	$("#registerName").keyup(function() {
-		// alert("sb");
+	$("input[name='registerName']").keyup(function() {
 		$.post("doCheckServlet", {
-			name : $("#name").val()
+			name : $("#registerName").val()
 		}, function(n) {
 			if (n == 1) {
 				alert("用戶名已存在");
 			}
 		})
 	});
+	/* 修改 bug */
+
 });
